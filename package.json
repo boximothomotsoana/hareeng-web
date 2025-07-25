@@ -1,0 +1,85 @@
+{
+  "name": "restart",
+  "private": true,
+  "description": "Batteries included React + Tailwind + Vite starter template.",
+  "version": "0.0.0",
+  "type": "module",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "start:dev": "vite",
+    "translate": "transmart",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "lint": "eslint \"src/**/*.{ts,tsx}\" --fix"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "dependencies": {
+    "@reduxjs/toolkit": "^2.6.1",
+    "clsx": "^2.1.1",
+    "i18next": "^24.2.2",
+    "i18next-browser-languagedetector": "^8.0.4",
+    "keen-slider": "^6.8.6",
+    "lucide-react": "^0.525.0",
+    "react": "^19.0.0",
+    "react-daisyui": "^5.0.5",
+    "react-dom": "^19.0.0",
+    "react-i18next": "^15.4.1",
+    "react-icons": "^5.5.0",
+    "react-redux": "^9.2.0",
+    "react-router": "^7.3.0",
+    "react-use": "^17.6.0",
+    "tailwind-merge": "^1.14.0",
+    "theme-change": "^2.5.0"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^19.8.0",
+    "@commitlint/config-conventional": "^19.8.0",
+    "@eslint/eslintrc": "^3.3.0",
+    "@eslint/js": "^9.22.0",
+    "@tailwindcss/typography": "^0.5.16",
+    "@transmart/cli": "^0.5.1",
+    "@types/react": "^19.0.10",
+    "@types/react-dom": "^19.0.4",
+    "@types/redux-logger": "^3.0.13",
+    "@vitejs/plugin-basic-ssl": "^2.0.0",
+    "@vitejs/plugin-react-swc": "^3.8.0",
+    "autoprefixer": "^10.4.20",
+    "daisyui": "^4.12.10",
+    "dotenv": "^16.4.7",
+    "eslint": "^9.22.0",
+    "eslint-config-prettier": "^10.1.1",
+    "eslint-plugin-import": "^2.31.0",
+    "eslint-plugin-n": "^17.16.2",
+    "eslint-plugin-perfectionist": "^4.10.0",
+    "eslint-plugin-prettier": "^5.2.3",
+    "eslint-plugin-promise": "^7.2.1",
+    "eslint-plugin-react": "^7.37.4",
+    "globals": "^16.0.0",
+    "husky": "^9.1.7",
+    "postcss": "^8.5.3",
+    "prettier": "^3.5.3",
+    "prettier-plugin-tailwindcss": "^0.6.11",
+    "redux-logger": "^3.0.6",
+    "rollup-plugin-visualizer": "^5.14.0",
+    "tailwindcss": "^3.4.17",
+    "tailwindcss-children": "^2.1.0",
+    "typescript": "5.1.6",
+    "typescript-eslint": "^8.26.0",
+    "vite": "^6.2.1",
+    "vite-plugin-checker": "^0.9.0",
+    "vite-plugin-svgr": "^4.3.0"
+  }
+}
