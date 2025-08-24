@@ -1,8 +1,11 @@
 import { Bike, Map, ShieldCheck, Zap } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 import scooterImage from "../assets/images/scooter.jpg";
 
 export default function ScooterSection() {
+  const navigate = useNavigate();
+
   return (
     <section className="relative mx-auto my-8 flex min-h-[60vh] w-full max-w-7xl items-center justify-center overflow-hidden rounded-3xl bg-base-100 shadow-lg dark:bg-base-300">
       {/* Scooter as background */}
@@ -57,6 +60,10 @@ export default function ScooterSection() {
         <a
           className="btn btn-primary btn-lg font-semibold transition-transform hover:scale-105"
           href="#"
+          onClick={(e) => {
+            e.preventDefault();
+            navigate("/driver/delivery-signup");
+          }}
         >
           Start delivering with Hareeng
         </a>

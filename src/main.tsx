@@ -5,6 +5,8 @@ import { Provider as ReduxProvider } from "react-redux";
 import App from "@/App";
 import store from "@/store";
 import "@/style.css";
+import "react-phone-input-2/lib/style.css";
+import "leaflet/dist/leaflet.css";
 // Create app
 const root = createRoot(document.getElementById("root")!);
 

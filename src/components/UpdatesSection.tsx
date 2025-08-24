@@ -166,14 +166,6 @@ export default function UpdatesSection() {
             </div>
           )}
         </div>
-        {/* View All Button */}
-        {filtered.length > visibleUpdates.length && (
-          <div className="mt-12 text-center">
-            <button className="btn btn-outline btn-primary">
-              View All Updates
-            </button>
-          </div>
-        )}
       </div>
     </section>
   );

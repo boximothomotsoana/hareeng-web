@@ -1,5 +1,10 @@
+import { useNavigate } from "react-router-dom";
+
 import carDriverImage from "../assets/images/car-driving.jpg";
+
 export default function EarnWithHareeng() {
+  const navigate = useNavigate();
+
   return (
     <section className="mx-auto flex w-full max-w-7xl flex-col-reverse items-center gap-10 px-4 py-16 md:flex-row">
       {/* Text Content */}
@@ -17,13 +22,21 @@ export default function EarnWithHareeng() {
           <li>Deliver food with Hareeng Food and get paid weekly</li>
           <li>Work when you want, as much as you want</li>
         </ul>
-        <div className="flex gap-4">
-          <a className="btn btn-neutral btn-lg font-semibold" href="#">
+        <div className="flex flex-col gap-3 sm:flex-row sm:gap-4">
+          <button
+            className="btn btn-neutral btn-lg w-full font-semibold sm:w-auto"
+            onClick={() => navigate("/driver/vehicle-driver-signup")}
+            type="button"
+          >
             Become a Driver
-          </a>
-          <a className="btn btn-primary btn-lg font-semibold" href="#">
+          </button>
+          <button
+            className="btn btn-primary btn-lg w-full font-semibold sm:w-auto"
+            onClick={() => navigate("/partners/courier-registration")}
+            type="button"
+          >
             Become a Courier
-          </a>
+          </button>
         </div>
       </div>
       {/* Image */}

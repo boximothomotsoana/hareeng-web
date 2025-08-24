@@ -1,5 +1,5 @@
-import "keen-slider/keen-slider.min.css";
 import { useKeenSlider } from "keen-slider/react";
+import "keen-slider/keen-slider.min.css";
 import {
   Bike,
   Building2,
@@ -8,7 +8,7 @@ import {
   ChevronRight,
   Utensils,
 } from "lucide-react";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const opportunities = [
   {
@@ -39,33 +39,68 @@ const opportunities = [
 
 export default function OpportunitiesSlider() {
   const sliderRef = useRef<HTMLDivElement>(null);
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [slidesPerView, setSlidesPerView] = useState(getPerView());
+
+  useEffect(() => {
+    const handleResize = () => setSlidesPerView(getPerView());
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   const [sliderInstanceRef, slider] = useKeenSlider<HTMLDivElement>({
     breakpoints: {
       "(min-width: 640px)": {
-        slides: { perView: 2, spacing: 24 },
+        slides: { perView: 2, spacing: 16 },
       },
       "(min-width: 1024px)": {
-        slides: { perView: 3, spacing: 32 },
+        slides: { perView: 3, spacing: 24 },
       },
     },
-    loop: true,
+    created(s) {
+      setSlidesPerView(
+        typeof s.options.slides === "object" &&
+          s.options.slides !== null &&
+          "perView" in s.options.slides
+          ? ((s.options.slides as { perView?: number }).perView ?? 1)
+          : 1,
+      );
+    },
+    loop: false,
+    slideChanged(s) {
+      setCurrentSlide(s.track.details.rel);
+      setSlidesPerView(
+        typeof s.options.slides === "object" &&
+          s.options.slides !== null &&
+          "perView" in s.options.slides
+          ? ((s.options.slides as { perView?: number }).perView ?? 1)
+          : 1,
+      );
+    },
     slides: {
       perView: 1,
-      spacing: 16,
+      spacing: 8,
     },
   });
 
+  const maxSlide = opportunities.length - slidesPerView;
+  const allVisible = opportunities.length <= slidesPerView;
+  const showPrev = !allVisible && currentSlide > 0;
+  const showNext = !allVisible && currentSlide < maxSlide;
+
   return (
-    <section className="relative mx-auto flex min-h-[340px] w-[95vw] max-w-7xl items-center justify-center rounded-3xl bg-base-100 bg-[url('https://www.transparenttextures.com/patterns/diamond-upholstery.png')] py-16 dark:bg-base-300">
+    <section className="relative mx-auto flex min-h-[340px] w-full max-w-7xl items-center justify-center overflow-hidden rounded-3xl bg-base-100 bg-[url('https://www.transparenttextures.com/patterns/diamond-upholstery.png')] py-8 dark:bg-base-300">
       {/* Prev Button */}
-      <button
-        aria-label="Previous"
-        className="absolute left-2 top-1/2 z-10 -translate-y-1/2 rounded-full bg-base-100/80 p-3 shadow transition hover:bg-primary hover:text-white dark:bg-base-200/80"
-        onClick={() => slider?.current?.prev()}
-        type="button"
-      >
-        <ChevronLeft size={32} />
-      </button>
+      {showPrev && (
+        <button
+          aria-label="Previous"
+          className="absolute left-2 top-1/2 z-10 -translate-y-1/2 rounded-full bg-base-100/80 p-2 shadow transition hover:bg-primary hover:text-white dark:bg-base-200/80"
+          onClick={() => slider?.current?.prev()}
+          type="button"
+        >
+          <ChevronLeft size={28} />
+        </button>
+      )}
 
       {/* Slider */}
       <div
@@ -77,14 +112,14 @@ export default function OpportunitiesSlider() {
       >
         {opportunities.map((item) => (
           <div
-            className={`keen-slider__slide mx-4 flex min-h-[260px] flex-col items-center justify-center rounded-2xl p-10 shadow-lg transition ${item.bg}`}
+            className={`keen-slider__slide flex min-h-[220px] flex-col items-center justify-center rounded-2xl p-4 shadow-lg transition ${item.bg}`}
             key={item.label}
           >
-            <div className="mb-4 text-primary">{item.icon}</div>
-            <div className="mb-2 text-2xl font-bold text-base-content">
+            <div className="mb-2 text-primary">{item.icon}</div>
+            <div className="mb-1 text-lg font-bold text-base-content">
               {item.label}
             </div>
-            <div className="text-center text-base text-base-content opacity-70">
+            <div className="text-center text-sm text-base-content opacity-70">
               {item.subtitle}
             </div>
           </div>
@@ -92,14 +127,22 @@ export default function OpportunitiesSlider() {
       </div>
 
       {/* Next Button */}
-      <button
-        aria-label="Next"
-        className="absolute right-2 top-1/2 z-10 -translate-y-1/2 rounded-full bg-base-100/80 p-3 shadow transition hover:bg-primary hover:text-white dark:bg-base-200/80"
-        onClick={() => slider?.current?.next()}
-        type="button"
-      >
-        <ChevronRight size={32} />
-      </button>
+      {showNext && (
+        <button
+          aria-label="Next"
+          className="absolute right-2 top-1/2 z-10 -translate-y-1/2 rounded-full bg-base-100/80 p-2 shadow transition hover:bg-primary hover:text-white dark:bg-base-200/80"
+          onClick={() => slider?.current?.next()}
+          type="button"
+        >
+          <ChevronRight size={28} />
+        </button>
+      )}
     </section>
   );
+}
+
+function getPerView() {
+  if (window.innerWidth >= 1024) return 3;
+  if (window.innerWidth >= 640) return 2;
+  return 1;
 }

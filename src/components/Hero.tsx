@@ -1,7 +1,14 @@
 import { Car, PhoneCall, ShieldCheck, ShoppingBag } from "lucide-react";
+import { QRCodeCanvas } from "qrcode.react";
+import { useState } from "react";
 import { Button, Card } from "react-daisyui";
 
 export default function Hero() {
+  const [showQR, setShowQR] = useState(false);
+
+  // Replace with your actual app download link
+  const appDownloadUrl = "https://your-app-download-link.com";
+
   return (
     <section className="flex flex-col items-center justify-center bg-gradient-to-br from-base-200 to-base-100 px-4 pb-20 pt-24 sm:pt-32 md:pb-32">
       {/* Hero Content */}
@@ -15,14 +22,60 @@ export default function Hero() {
           seamless platform.
         </p>
         <div className="mb-8 flex flex-col justify-center gap-4 sm:flex-row">
-          <Button className="font-semibold" color="neutral" size="lg">
+          <Button
+            className="font-semibold"
+            color="neutral"
+            onClick={() => setShowQR(true)}
+            size="lg"
+          >
             Book a Ride
           </Button>
-          <Button className="font-semibold" color="primary" size="lg">
+          <Button
+            className="font-semibold"
+            color="primary"
+            onClick={() => setShowQR(true)}
+            size="lg"
+          >
             Order Food
           </Button>
         </div>
       </div>
+
+      {/* QR Code Modal */}
+      {showQR && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-40">
+          <div className="relative flex w-[340px] flex-col items-center rounded-2xl bg-white p-10 text-center shadow-2xl sm:w-[400px]">
+            <button
+              aria-label="Close"
+              className="absolute right-6 top-6 text-3xl font-bold text-gray-500 transition-colors hover:text-primary"
+              onClick={() => setShowQR(false)}
+              style={{ lineHeight: 1 }}
+            >
+              ×
+            </button>
+            <h3 className="mb-6 text-2xl font-bold text-primary">
+              Scan to Download Our App
+            </h3>
+            <div className="mb-6 flex items-center justify-center">
+              <QRCodeCanvas
+                bgColor="#ffffff"
+                fgColor="#1f2937"
+                size={220}
+                style={{
+                  background: "#fff",
+                  borderRadius: "16px",
+                  boxShadow: "0 2px 16px rgba(0,0,0,0.08)",
+                  padding: "12px",
+                }}
+                value={appDownloadUrl}
+              />
+            </div>
+            <p className="text-base text-gray-600">
+              Scan this QR code with your phone to download the app.
+            </p>
+          </div>
+        </div>
+      )}
 
       {/* Feature Cards */}
       <div className="w-full max-w-6xl px-4">

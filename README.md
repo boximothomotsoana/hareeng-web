@@ -104,3 +104,5 @@ npm test
 ## nice coding with react, vite, tailwindcss, way forward to typescript
 
 ## check future commits with laravel api and auth components
+
+## IMPORTANT npx eslint src/ --fix
